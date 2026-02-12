@@ -2,6 +2,7 @@ from API import generate_text_to_image, enhance_prompt
 from CSS import local_css
 import streamlit as st
 import io
+import os
 from datetime import datetime
 from Database.Database import save_history
 
@@ -71,12 +72,16 @@ def render_Generate_Image():
                                                             num_images,
                                                             aspect_ratio)
                         if isinstance(result, str):
+                            if not os.path.exists('outputs'):
+                                os.makedirs('outputs')
+
                             for idx, img in enumerate(result):
                                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
                                 file_name = f"img_{timestamp}_{idx+1}.png"
                                 file_path = os.path.join("outputs", file_name)
                                 img.save(file_path)
-                                enhanced = st.session_state["user_input"] if st.session_state.get("user_input") != user_prompt else ""
+
+                                enhanced = st.session_state.get("user_input", "")
                                 save_history(user_prompt, enhanced, file_path, style)
                             st.session_state["generated_img"] = result
                             st.success(f"Đã lưu {len(result)} ảnh vào thư mục outputs/")

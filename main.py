@@ -1,7 +1,5 @@
-import io
-import os
 import streamlit as st
-from Database.Database import init_db, get_history
+from Database.Database import init_db
 from CSS import local_css
 from Tabs.Generate_Image import render_Generate_Image
 from Tabs.Lifestyle_Shot import render_Lifestyle_Shot
