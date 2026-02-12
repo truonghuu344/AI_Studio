@@ -1,5 +1,7 @@
 import io
+import os
 import streamlit as st
+from Database.Database import init_db, get_history
 from CSS import local_css
 from Tabs.Generate_Image import render_Generate_Image
 from Tabs.Lifestyle_Shot import render_Lifestyle_Shot
@@ -8,6 +10,10 @@ from Tabs.Sidebar import render_side_bar
 
 local_css()
 
+if not os.path.exists('history.db'):
+    init_db()
+if not os.path.exists('outputs'):
+    os.makedirs('outputs')
 
 
 
@@ -17,7 +23,7 @@ render_side_bar()
 
 # Tabs
 st.title("Text to image")
-GenerateImage, LifestyleShot = st.tabs(["Generate Image", "Lifestyle Shot"])
+GenerateImage, LifestyleShot, HistoryTab = st.tabs(["Generate Image", "Lifestyle Shot", "History Tab"])
 
 render_AI_Chatbot()
 
@@ -27,7 +33,9 @@ with GenerateImage:
 #Tab2
 with LifestyleShot:
     render_Lifestyle_Shot()
-
+#Tab3
+with HistoryTab:
+    
 
 
 
