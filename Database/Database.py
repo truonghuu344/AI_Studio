@@ -1,5 +1,5 @@
 import sqlite3 as sql
-from datetime import datatime
+from datetime import datetime
 import os
 
 def init_db():
@@ -14,11 +14,11 @@ def init_db():
     conn.commit()
     conn.close()
 
-def save_history():
+def save_history(prompt, enhanced_prompt, image_path, style):
     conn = sql.connect('history.db')
     c = conn.cursor()
-    c.execute("INSERT INTO image_history (prompt, enhanced_prompt, image_path, styyle, timestamp) VALUES(?, ?, ?, ?, ?)", 
-              (prompt, ehanced_prompt, image_path, style, datetime.now()))
+    c.execute("INSERT INTO image_history (prompt, enhanced_prompt, image_path, style, timestamp) VALUES(?, ?, ?, ?, ?)", 
+              (prompt, enhanced_prompt, image_path, style, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
     conn.commit()
     conn.close()
 

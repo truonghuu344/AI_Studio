@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from Database.Database import get_history, init_db
+from Database.Database import get_history
 
 def render_History_Tab():
     st.header("Lịch sử tạo ảnh")

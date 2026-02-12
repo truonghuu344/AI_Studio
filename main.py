@@ -7,13 +7,11 @@ from Tabs.Generate_Image import render_Generate_Image
 from Tabs.Lifestyle_Shot import render_Lifestyle_Shot
 from Tabs.AI_Chatbot import render_AI_Chatbot
 from Tabs.Sidebar import render_side_bar
+from Tabs.History_Tab import render_History_Tab
 
 local_css()
 
-if not os.path.exists('history.db'):
-    init_db()
-if not os.path.exists('outputs'):
-    os.makedirs('outputs')
+init_db()
 
 
 
@@ -35,7 +33,7 @@ with LifestyleShot:
     render_Lifestyle_Shot()
 #Tab3
 with HistoryTab:
-    
+    render_History_Tab()
 
 
 
