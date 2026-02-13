@@ -1,3 +1,4 @@
+from PIL import Image
 from API import generate_text_to_image, enhance_prompt
 from CSS import local_css
 import streamlit as st
@@ -77,9 +78,15 @@ def render_Generate_Image():
 
                             for idx, img in enumerate(result):
                                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                                file_name = f"img_{timestamp}_{idx+1}.png"
+                                file_name = f"img_{timestamp}_{idx+1}.jpg"
                                 file_path = os.path.join("outputs", file_name)
-                                img.save(file_path)
+
+                                img_rgb = img.convert("RGB")    
+                                max_with = 768
+                                w_percent = (max_with / float(img_rgb.size[0]))
+                                h_size = int((float(img_rgb.size[1]) * float(w_percent)))
+                                img_rgb = img_rgb.resize((max_with, h_size), Image.Resampling.LANCZOS)
+                                img_rgb.save(file_path, "JPEG", quality=95, optimize=True)
 
                                 enhanced = st.session_state.get("user_input", "")
                                 save_history(user_prompt, enhanced, file_path, style)
