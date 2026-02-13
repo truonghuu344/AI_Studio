@@ -29,3 +29,32 @@ def get_history():
     data = c.fetchall()
     conn.close()
     return data
+
+def delete_history_item(item_id):
+    conn = sql.connect('history.db')
+    c = conn.cursor()
+
+    c.execute("SELECT image_path FROM image_history WHERE id = ?", (item_id,))
+    path = c.fetchone()
+    if path and os.path.exists(path[0]):
+        os.remove(path[0])
+
+    c.execute("DELETE FROM image_history WHERE id = ?", (item_id,))
+    conn.commit()
+    conn.close()
+
+def delete_all_history():
+    conn = sql.connect('history.db')
+    c = conn.cursor()
+
+    c.execute("DELETE FROM image_history")
+    conn.commit()
+    conn.close()
+    if os.path.exists('outputs'):
+        for file in os.listdir('outputs'):
+            file_path = os.path.join('outputs', file)
+            try: 
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+            except Exception as e:
+                print(f"Error deleting file {file_path}: {e}")

@@ -71,7 +71,7 @@ def render_Generate_Image():
                         result = generate_text_to_image(final_prompt,
                                                             num_images,
                                                             aspect_ratio)
-                        if isinstance(result, str):
+                        if not isinstance(result, str):
                             if not os.path.exists('outputs'):
                                 os.makedirs('outputs')
 
