@@ -5,9 +5,11 @@ import streamlit as st
 import io
 import os
 from datetime import datetime
-from Database.Database import save_history
+from Database.IMG_Database import save_history
 
 def render_Generate_Image():
+    
+    
     local_css()
     
     col1, col2, col3 = st.columns(3, gap="large")
@@ -40,7 +42,8 @@ def render_Generate_Image():
             if st.button("Enhance Prompt"):
                 if user_prompt:
 
-                    st.session_state["original_prompt"] = user_prompt
+                    if not st.session_state.get("original_prompt"):
+                      st.session_state["original_prompt"] = user_prompt
                     with st.spinner("Đang nâng cấp prompt..."):
                         enhanced_text = enhance_prompt(user_prompt)
                     
@@ -61,7 +64,16 @@ def render_Generate_Image():
                             final_prompt += ", high resolution, 8k, extremely detailed"
                         
                         result = generate_text_to_image(final_prompt, num_images, aspect_ratio)
-                        
+                        stored_original = st.session_state.get("original_prompt", "").strip()
+                
+                        if stored_original and stored_original != user_prompt:
+
+                            p_original = stored_original
+                            p_enhanced = user_prompt
+                        else:
+                        # Nếu người dùng tự nhập prompt dài hoặc không bấm Enhance
+                            p_original = user_prompt
+                            p_enhanced = ""
                         if not isinstance(result, str):
                             if not os.path.exists('outputs'):
                                 os.makedirs('outputs')
@@ -89,6 +101,8 @@ def render_Generate_Image():
                                 save_history(p_original, p_enhanced, file_path, style)
                             
                             st.session_state["generated_img"] = result
+                            st.session_state["display_original_prompt"] = p_original
+                            st.session_state["display_enhanced_prompt"] = p_enhanced
                             # Reset prompt gốc sau khi đã lưu xong vào database
                             st.session_state["original_prompt"] = "" 
                             st.success(f"Đã lưu {len(result)} ảnh vào thư mục outputs/")

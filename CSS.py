@@ -4,14 +4,14 @@ import streamlit as st
 def local_css():
     st.markdown("""
     <style>
+    /* Toàn bộ app */
     .stApp {
-        background: linear-gradient(300deg, #00f2ff 0%, #7000ff 50%, #ff00d4 100%) !important;
         background-attachment: fixed;
     }
     .stApp h2, .stApp h3 {
         color: white !important;
     }
-
+    /* Toàn bộ app */
     [data-testid="stMain"] h1 {
         background: linear-gradient(90deg, #00d2ff, #3a7bd5); /* Màu gradient bạn muốn */
         -webkit-background-clip: text; /* Cắt gradient theo hình dạng chữ */
@@ -21,11 +21,12 @@ def local_css():
         line-height: 1.2; 
         text-shadow: 0px 0px 10px rgba(0, 210, 255, 0.5); /* Hiệu ứng phát sáng nhẹ */
     }
+    /* Cỡ chữ, màu chữ */
     .stApp label, .stApp [data-testid="stWidgetLabel"] p {
         color: white !important;
         font-weight: 500;
     }
-    
+    /* Nhập prompt */
     .stTextArea textarea {
         font-family: 'Monospace', Monospace !important; 
         font-size: 16px !important;
@@ -33,18 +34,18 @@ def local_css():
         font-weight: bold;
         
     }
-
     
     header[data-testid="stHeader"]{
         background-color: rgba(0,0,0,0) !important;
     }
+    /* Sidebar */
     [data-testid="stSidebar"],
     section[data-testid="stSidebar"] > div {
         background-color: rgba();
         background-shadow: 10px 10px;
         color: hsl(240, 3%, 40%);
     }
-    
+    /* Các container */
     .block-container {
         margin-left: 0px !important;
         margin-right: auto !important;
@@ -121,7 +122,7 @@ def local_css():
     transform: translateY(-1px);
     transition: 0.2s ease;
     }
-    
+   
     
     
    

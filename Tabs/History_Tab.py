@@ -1,8 +1,10 @@
 import streamlit as st
 import os
-from Database.Database import get_history, delete_history_item, delete_all_history
+from Database.IMG_Database import get_history, delete_history_item, delete_all_history
 
 def render_History_Tab():
+   
+    
     st.header("Lịch sử tạo ảnh")
     
     history_data = get_history()
@@ -11,7 +13,7 @@ def render_History_Tab():
         st.info("Chưa có lịch sử tạo ảnh.")
         return
 
-    # Nút xóa tất cả ở trên cùng
+
     col_header, col_action = st.columns([3, 1])
     with col_action:
         if st.button("🗑️ Xóa tất cả", use_container_width=True, type="secondary"):
@@ -21,7 +23,7 @@ def render_History_Tab():
     st.divider()
 
     for item in history_data:
-        # item[0] là ID, item[1] là Prompt, item[3] là Path...
+
         with st.expander(f"Prompt: {item[1][:50]}... ({item[5]})"):
             col_a, col_b = st.columns([1, 2])
             

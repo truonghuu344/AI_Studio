@@ -6,6 +6,8 @@ from API import ai_chatbot
 
 
 def render_AI_Chatbot():
+   
+    
     # Tạo biến
     locals()
     if "messages" not in st.session_state:

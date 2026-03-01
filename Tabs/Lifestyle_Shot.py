@@ -5,6 +5,8 @@ import io
 from PIL import Image
 
 def render_Lifestyle_Shot():
+    
+    
     layout1, layout2 = st.columns([1, 1], gap="large")
     if "processed_img" not in st.session_state:
         st.session_state["processed_img"] = None

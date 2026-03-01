@@ -2,6 +2,7 @@ import sqlite3 as sql
 from datetime import datetime
 import os
 
+
 def init_db():
     conn = sql.connect('history.db')
     c = conn.cursor()
@@ -10,7 +11,12 @@ def init_db():
                                                         enhanced_prompt TEXT,
                                                         image_path TEXT,
                                                         style TEXT,
-                                                        timestamp DATETIME)''') 
+                                                        timestamp DATETIME)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                  username TEXT UNIQUE,
+                                                  password TEXT,
+                                                  email TEXT UNIQUE,
+                                                  created_at DATETIME)''')
     conn.commit()
     conn.close()
 

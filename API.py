@@ -65,27 +65,3 @@ def ai_chatbot(messages):
     except Exception as e:
         return f"Lỗi: {e}"
 
-def image_to_video(image_input):
-    try:
-        # Chuẩn hóa ảnh sang bytes
-        if hasattr(image_input, 'save'):
-            buf = io.BytesIO()
-            image_input.save(buf, format="PNG")
-            image_bytes = buf.getvalue()
-        else:
-            image_bytes = image_input
-
-        # Resize về chuẩn 512x512 để tránh lỗi API
-        img = Image.open(io.BytesIO(image_bytes)).convert("RGB").resize((512, 512))
-        temp_buf = io.BytesIO()
-        img.save(temp_buf, format="PNG")
-
-        res = requests.post(
-            "https://api-inference.huggingface.co/models/stabilityai/stable-video-diffusion-img2vid-xt",
-            headers={"Authorization": f"Bearer {HF_TOKEN}"},
-            files={"input": ("image.png", temp_buf.getvalue(), "image/png")},
-            timeout=300
-        )
-        return (True, res.content) if res.status_code == 200 else (False, f"Lỗi {res.status_code}")
-    except Exception as e:
-        return False, str(e)
