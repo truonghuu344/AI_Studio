@@ -1,5 +1,4 @@
 import streamlit as st
-from CSS import local_css
 from Database.IMG_Database import get_history
 
 
@@ -19,7 +18,8 @@ def render_side_bar():
         
         # Get number of created images
         try:
-            history = get_history()
+            user_id = st.session_state.get("user_id")
+            history = get_history(user_id)
             image_count = len(history) if history else 0
         except:
             image_count = 0
@@ -37,6 +37,8 @@ def render_side_bar():
         if st.button("🚪 Logout", use_container_width=True, type="secondary"):
             st.session_state["logged_in"] = False
             st.session_state["username"] = ""
+            st.session_state["user_id"] = None
+            st.session_state["role"] = None
             st.rerun()
 
 

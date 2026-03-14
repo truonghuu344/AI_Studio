@@ -1,19 +1,18 @@
 from API import remove_background
-from CSS import local_css
+
 import streamlit as st
 import io
 from PIL import Image
 
 def render_Lifestyle_Shot():
-    
-    
+
     layout1, layout2 = st.columns([1, 1], gap="large")
     if "processed_img" not in st.session_state:
         st.session_state["processed_img"] = None
 
     with layout1:
 
-        st.subheader("Product Photography")
+        st.subheader("Product Photography", anchor = False)
 
         uploaded_image = st.file_uploader("Upload Image", [".PNG", ".JPG", ".JPEG"])
         # Tải ảnh

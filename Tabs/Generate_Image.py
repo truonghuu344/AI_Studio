@@ -1,6 +1,6 @@
 from PIL import Image
 from API import generate_text_to_image, enhance_prompt
-from CSS import local_css
+from CSS.CSS import local_css
 import streamlit as st
 import io
 import os
@@ -15,12 +15,12 @@ def render_Generate_Image():
     col1, col2, col3 = st.columns(3, gap="large")
     
     with col2:
-        st.subheader("Setting")
+        st.subheader("Setting", anchor = False)
         num_images = st.select_slider("Number of images", options=[1, 2, 3, 4, 5], key="num_imgs")
         aspect_ratio = st.selectbox("Aspect ratio", options=["1:1", "16:9", "4:3", "9:16", "3:2", "21:9"], index=0, key="ratio")
         upscale = st.checkbox("Enhance image quality", key="upscale")
         
-        st.subheader("Style Options")
+        st.subheader("Style Options", anchor = False)
         style = st.selectbox("Image Style", ["Realistic", "Cinematic", "Anime", "Digital Art", "Oil Painting"], key="style_opt")
 
     with col1:
@@ -30,7 +30,7 @@ def render_Generate_Image():
         if "original_prompt" not in st.session_state:
             st.session_state["original_prompt"] = ""
 
-        st.subheader("Generate Image")
+        st.subheader("Generate Image", anchor = False)
         user_prompt = st.text_area("Input Prompt",
                                    value=st.session_state["user_input"],
                                    placeholder="Nhập prompt...",
@@ -98,7 +98,7 @@ def render_Generate_Image():
                                     p_original = user_prompt
                                     p_enhanced = ""
                                 
-                                save_history(p_original, p_enhanced, file_path, style)
+                                save_history(st.session_state["user_id"], p_original, p_enhanced, file_path, style)
                             
                             st.session_state["generated_img"] = result
                             st.session_state["display_original_prompt"] = p_original
@@ -112,7 +112,7 @@ def render_Generate_Image():
                     st.warning("Vui lòng nhập prompt")
 
     with col3:
-        st.subheader("Result")
+        st.subheader("Result", anchor = False)
         if "generated_img" in st.session_state:
             images = st.session_state["generated_img"]
             if not isinstance(images, list):

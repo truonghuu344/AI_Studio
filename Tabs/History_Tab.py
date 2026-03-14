@@ -5,9 +5,9 @@ from Database.IMG_Database import get_history, delete_history_item, delete_all_h
 def render_History_Tab():
    
     
-    st.header("Lịch sử tạo ảnh")
+    st.header("Lịch sử tạo ảnh", anchor = False)
     
-    history_data = get_history()
+    history_data = get_history(st.session_state.get("user_id"))
     
     if not history_data:
         st.info("Chưa có lịch sử tạo ảnh.")
