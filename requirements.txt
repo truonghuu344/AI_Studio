@@ -1,0 +1,8 @@
+streamlit
+huggingface_hub
+pillow
+requests
+python-dotenv
+openai
+bcrypt
+streamlit-authenticator
