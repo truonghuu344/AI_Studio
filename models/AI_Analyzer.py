@@ -8,11 +8,8 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import streamlit as st
 
-# Nạp biến môi trường từ file .env nếu có
 load_dotenv()
 
-# --- CẤU HÌNH MODEL ---
-# Model miễn phí tốt nhất cho vision + reasoning trên HF
 VISION_MODEL = "meta-llama/Llama-3.2-11B-Vision-Instruct"
 TEXT_MODEL   = "Qwen/Qwen2.5-7B-Instruct" 
 
@@ -40,17 +37,12 @@ Reply ONLY with valid JSON, no markdown:
   "suggested_prompt": "a specific prompt the user would likely enjoy"
 }}"""
 
-# --- HÀM BỔ TRỢ ---
 
 def get_openai_client():
-    """
-    Khởi tạo OpenAI client một cách an toàn.
-    Lấy API Key từ Streamlit Session State hoặc biến môi trường.
-    """
+   
     api_key = st.session_state.get("api_key") or os.getenv("OPENAI_API_KEY")
     
     if not api_key:
-        # Trả về None thay vì để thư viện OpenAI báo lỗi crash app[cite: 1]
         return None
 
     return OpenAI(
