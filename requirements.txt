@@ -6,3 +6,5 @@ python-dotenv
 openai
 bcrypt
 streamlit-authenticator
+onnxruntime
+rembg

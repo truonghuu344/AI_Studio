@@ -192,6 +192,7 @@ TextToImage/
 │   └── Lifestyle_Shot.py     # Tính năng phụ
 │
 └── outputs/                  # Thư mục lưu ảnh theo user
+    ├── user_1/
     ├── user_2/
     ├── user_3/
     ├── user_4/

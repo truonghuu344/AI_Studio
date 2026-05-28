@@ -1,6 +1,5 @@
-import io
+
 import os
-import requests
 import random
 from PIL import Image
 from huggingface_hub import InferenceClient
