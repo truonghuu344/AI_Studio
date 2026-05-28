@@ -8,3 +8,4 @@ bcrypt
 streamlit-authenticator
 onnxruntime
 rembg
+plotly
