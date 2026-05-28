@@ -5,10 +5,7 @@ from PIL import Image
 from huggingface_hub import InferenceClient
 from openai import OpenAI
 from rembg import remove, new_session
-from dotenv import load_dotenv
 
-load_dotenv()
-HF_TOKEN = os.getenv("HF_TOKEN")
 
 hf_client = InferenceClient(provider="hf-inference", api_key=HF_TOKEN)
 oai_client = OpenAI(base_url="https://router.huggingface.co/v1", api_key=HF_TOKEN)
