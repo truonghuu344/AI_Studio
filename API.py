@@ -7,9 +7,6 @@ from openai import OpenAI
 from rembg import remove, new_session
 
 
-hf_client = InferenceClient(provider="hf-inference", api_key=HF_TOKEN)
-oai_client = OpenAI(base_url="https://router.huggingface.co/v1", api_key=HF_TOKEN)
-
 def generate_text_to_image(prompt, num_images=1, aspect_ratio="1:1", api_key = None):
     if not api_key:
         return "Lỗi: Vui lòng nhập API Key ở Sidebar"
