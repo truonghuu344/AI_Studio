@@ -5,13 +5,12 @@ import os
 import base64
 from pathlib import Path
 from openai import OpenAI
-from dotenv import load_dotenv
 import streamlit as st
 
-load_dotenv()
+
 
 VISION_MODEL = "meta-llama/Llama-3.2-11B-Vision-Instruct"
-TEXT_MODEL   = "Qwen/Qwen2.5-7B-Instruct" 
+TEXT_MODEL   = "meta-llama/Llama-3.1-8B-Instruct" 
 
 CATEGORIES = [
     "Portrait", "Landscape", "Fantasy", "Sci-Fi", "Architecture",
@@ -43,12 +42,16 @@ def get_openai_client():
     api_key = st.session_state.get("api_key") or os.getenv("OPENAI_API_KEY")
     
     if not api_key:
+        st.warning("Vui lòng nhập Hugging Face API Key")
         return None
-
-    return OpenAI(
-        base_url="https://router.huggingface.co/v1",
-        api_key=api_key
-    )
+    try:
+        return OpenAI(
+            base_url="https://router.huggingface.co/v1",
+            api_key=api_key
+        )
+    except Exception as e:
+        st.error(f"Lỗi khi tạo client OpenAI: {e}")
+        return None
 
 def _encode_image_url(path: str) -> str:
     """Encode ảnh thành base64 data URL cho vision model[cite: 1]."""
